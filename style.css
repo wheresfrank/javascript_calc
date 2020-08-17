@@ -1,0 +1,100 @@
+body {
+    background-color: lightslategray;
+    margin: 0;
+    padding: 0;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 36px;
+}
+
+#calc {
+    width: 600px;
+    height: 794px;
+    position: relative;
+    border: black solid 1px;
+    background-color: darkslategray;
+    top: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0;
+}
+
+#screen {
+    width: auto;
+    height: 122.5px;
+    background-color: rgba(0, 0, 0, 0.253);
+    color: #41FF00;
+    padding: 5px;
+}
+
+#calcTop {
+    margin: 10px 5px 10px 5px;
+    height: max-content;
+}
+
+#calcBottom {
+    padding: 0;
+    height: min-content;
+}
+
+button {
+    height: 122.5px;
+    text-align: center;
+    border: none;
+    display: inline-block;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+#btnClear {
+    width: 392.5px;
+    margin: 0px 2.5px 5px 5px;
+    float: left;
+    background-color: rgb(240, 255, 238);
+    color: orangered;
+}
+
+#btnBS {
+    background-color: rgb(240, 255, 238);
+    color: orangered;
+}
+
+#btnBS {
+    width: 192.5px;
+    margin: 0px 5px 5px 2.5px;
+    float: left;
+}
+
+.numBtn {
+    width: 143.75px;
+    background-color: rgb(240, 255, 238);
+}
+
+.optBtn {
+    width: 143.75px;
+    background-color: rgb(133, 197, 133);
+}
+
+.numBtn.lt {
+    margin: 0px 2.5px 5px 5px;
+    float: left;
+}
+
+.numBtn.md {
+    margin: 0px 2.5px 5px 2.5px;
+    float: left;
+}
+
+.optBtn {
+    margin: 0px 5px 5px 2.5px;
+    float: left;
+}
+
+#btnEqual {
+    width: 143.75px;
+    margin: 0px 2.5px 5px 2.5px;
+    background-color: rgb(133, 197, 133);
+    float: left;
+}
