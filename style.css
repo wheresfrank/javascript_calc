@@ -1,5 +1,5 @@
 body {
-    background-color: lightslategray;
+    background-color: rgb(152, 156, 160);
     margin: 0;
     padding: 0;
     font-family: Impact, Charcoal, sans-serif;
@@ -23,6 +23,7 @@ body {
 #screen {
     width: auto;
     height: 122.5px;
+    word-wrap: break-word;
     background-color: rgba(0, 0, 0, 0.253);
     color: #41FF00;
     padding: 5px;
@@ -56,12 +57,25 @@ button {
     color: orangered;
 }
 
-#btnBS {
-    background-color: rgb(240, 255, 238);
+#btnClear:hover {
+    width: 392.5px;
+    margin: 0px 2.5px 5px 5px;
+    float: left;
+    background-color: rgb(200, 223, 197);
     color: orangered;
 }
 
 #btnBS {
+    background-color: rgb(240, 255, 238);
+    color: orangered;
+    width: 192.5px;
+    margin: 0px 5px 5px 2.5px;
+    float: left;
+}
+
+#btnBS:hover {
+    background-color: rgb(200, 223, 197);
+    color: orangered;
     width: 192.5px;
     margin: 0px 5px 5px 2.5px;
     float: left;
@@ -72,9 +86,21 @@ button {
     background-color: rgb(240, 255, 238);
 }
 
+.numBtn:hover {
+    width: 143.75px;
+    background-color: rgb(200, 223, 197);
+}
+
 .optBtn {
     width: 143.75px;
     background-color: rgb(133, 197, 133);
+    margin: 0px 5px 5px 2.5px;
+    float: left;
+}
+
+.optBtn:hover {
+    width: 143.75px;
+    background-color: rgb(143, 190, 143);
 }
 
 .numBtn.lt {
@@ -87,14 +113,16 @@ button {
     float: left;
 }
 
-.optBtn {
-    margin: 0px 5px 5px 2.5px;
-    float: left;
-}
-
 #btnEqual {
     width: 143.75px;
     margin: 0px 2.5px 5px 2.5px;
     background-color: rgb(133, 197, 133);
+    float: left;
+}
+
+#btnEqual:hover {
+    width: 143.75px;
+    margin: 0px 2.5px 5px 2.5px;
+    background-color: rgb(143, 190, 143);
     float: left;
 }

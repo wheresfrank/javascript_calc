@@ -3,29 +3,30 @@
     <head>
         <title>Calcatron</title>
         <link rel=stylesheet href="style.css" type="text/css">
+        <script src="script.js"></script>
     </head>
     <body>
         <div id="calc">
             <div id="calcTop">
-                <div id="screen">12345</div>
+                <div id="screen"></div>
             </div>
             <div id="calcBottom">
-                <button id="btnClear">CLEAR</button>
-                <button id="btnBS">&#x2B05;</button><br>
-                <button id="btn7" class="numBtn lt">7</button>
-                <button id="btn8" class="numBtn md">8</button>
-                <button id="btn9" class="numBtn md">9</button>
+                <button id="btnClear"onclick="buttonClear()">CLEAR</button>
+                <button id="btnBS" onclick="buttonBS()">&#x2B05;</button><br>
+                <button id="btn7" class="numBtn lt" onclick="buttonSeven()">7</button>
+                <button id="btn8" class="numBtn md" onclick="buttonEight()">8</button>
+                <button id="btn9" class="numBtn md" onclick="buttonNine()">9</button>
                 <button id="btnDiv" class="optBtn">÷</button><br>
-                <button id="btn4" class="numBtn lt">4</button>
-                <button id="btn5" class="numBtn md">5</button>
-                <button id="btn6" class="numBtn md">6</button>
+                <button id="btn4" class="numBtn lt" onclick="buttonFour()">4</button>
+                <button id="btn5" class="numBtn md" onclick="buttonFive()">5</button>
+                <button id="btn6" class="numBtn md" onclick="buttonSix()">6</button>
                 <button id="btnMult" class="optBtn">x</button><br>
-                <button id="btn1" class="numBtn lt">1</button>
-                <button id="btn2" class="numBtn md">2</button>
-                <button id="btn3" class="numBtn md">3</button>
+                <button id="btn1" class="numBtn lt" onclick="buttonOne()">1</button>
+                <button id="btn2" class="numBtn md" onclick="buttonTwo()">2</button>
+                <button id="btn3" class="numBtn md" onclick="buttonThree()">3</button>
                 <button id="btnSub" class="optBtn">-</button><br>
-                <button id="btn0" class="numBtn lt">0</button>
-                <button id="btnDec" class="numBtn md">.</button>
+                <button id="btn0" class="numBtn lt" onclick="buttonZero()">0</button>
+                <button id="btnDec" class="numBtn md"onclick="buttonDecimal()">.</button>
                 <button id="btnEqual">=</button>
                 <button id="btnPlus" class="optBtn">+</button>
             </div>
