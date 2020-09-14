@@ -2,156 +2,68 @@ let a = null;
 let b = null;
 let newLine = true;
 let lastOperation = '';
+let currentOperation = '';
+let afterEqual = false;
 
-function buttonOne() {
-  
+document.addEventListener('keyup', (event) => {
+
+    if (event.key >= 0 && event.key <= 9) {
+        buttonNumber(event.key);
+    } else if (event.key == '+') {
+        buttonPlus();
+    }else if (event.key == '-') {
+        buttonSub();
+    } else if (event.key == '/' || event.key == '\\') {
+        buttonDiv();
+    } else if (event.key == 'x' || event.key == '*') {
+        buttonMult();
+    } else if (event.key == '=' || event.key == 'Enter') {
+        buttonEqual();
+    } else if (event.key == 'Backspace') {
+        buttonBS()
+    } else if (event.key == '.') {
+        buttonDecimal()
+    } else {};
+});
+
+function buttonNumber(a) {
+
     var screen = document.getElementById('screen')
-    var num = document.createTextNode('1')
+    var sub = document.getElementById('subscreen');
+    var num = document.createTextNode(a)
+    var subNum = document.createTextNode(a)
+
+
+    if (afterEqual == true) {
+        buttonClear()
+    }
 
     if (newLine == true) {
         screen.innerText = ''
         screen.appendChild(num);
+        sub.appendChild(subNum);
         newLine = false;
+        afterEqual = false;
     } else {
         screen.appendChild(num);
-    };
-};
-
-function buttonTwo() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('2')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonThree() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('3')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonFour() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('4')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonFive() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('5')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonSix() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('6')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonSeven() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('7')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonEight() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('8')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonNine() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('9')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
-    };
-};
-
-function buttonZero() {
-    
-    var screen = document.getElementById('screen')
-    var num = document.createTextNode('0')
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        newLine = false;
-    } else {
-        screen.appendChild(num);
+        sub.appendChild(subNum);
+        afterEqual = false;
     };
 };
 
 function buttonDecimal() {
     
-    let screen = document.getElementById('screen')
+    var screen = document.getElementById('screen')
+    var sub = document.getElementById('subscreen');
     var num = document.createTextNode('.')
+    var subNum = document.createTextNode('.')
 
     if (screen.innerText.includes('.')) {
         //Do nothing if number already has a decimal
     } else {
-    screen.appendChild(num);
+        screen.appendChild(num);
+        sub.appendChild(subNum)
+        newLine = false;
     };
 };
 
@@ -165,6 +77,7 @@ function buttonClear() {
     a = null
     b = null
     lastOperation = '';
+    afterEqual = false;
 
 };
 
@@ -183,6 +96,11 @@ function buttonBS() {
 function buttonPlus() {
 
     if (lastOperation == '') {lastOperation = 'add'};
+    currentOperation = 'add'
+
+    var sub = document.getElementById('subscreen');
+    if (afterEqual == true) {sub.innerText = ''}
+
     operate();
 
 };
@@ -190,6 +108,11 @@ function buttonPlus() {
 function buttonSub() {
 
     if (lastOperation == '') {lastOperation = 'subtract'};
+    currentOperation = 'subtract'
+
+    var sub = document.getElementById('subscreen');
+    if (afterEqual == true) {sub.innerText = ''}
+    
     operate();
 
 };
@@ -197,6 +120,11 @@ function buttonSub() {
 function buttonMult() {
 
     if (lastOperation == '') {lastOperation = 'multiply'};
+    currentOperation = 'multiply'
+
+    var sub = document.getElementById('subscreen');
+    if (afterEqual == true) {sub.innerText = ''}
+
     operate();
 
 };
@@ -204,6 +132,11 @@ function buttonMult() {
 function buttonDiv() {
 
     if (lastOperation == '') {lastOperation = 'divide'};
+    currentOperation = 'divide'
+
+    var sub = document.getElementById('subscreen');
+    if (afterEqual == true) {sub.innerText = ''}
+    
     operate();
 
 };
@@ -223,6 +156,10 @@ function buttonEqual() {
 
     sub.innerText = str + ' = ' + a
 
+    b = null
+
+    afterEqual = true;
+
 }
 
 function operate() { 
@@ -232,12 +169,12 @@ function operate() {
     a = screen.innerText
 
     var symbol = ''
-    if (lastOperation == 'add') {var symbol = '+'}
-    else if (lastOperation == 'subtract') {var symbol = '-'}
-    else if (lastOperation == 'multiply') {var symbol = 'x'}
+    if (currentOperation == 'add') {var symbol = '+'}
+    else if (currentOperation == 'subtract') {var symbol = '-'}
+    else if (currentOperation == 'multiply') {var symbol = 'x'}
     else {var symbol = '/'}
 
-    var num = document.createTextNode(a + ' ' + symbol + ' ');
+    var num = document.createTextNode(' ' + symbol + ' ');
     
     if (a == '') {
         //Don't start adding if screen is blank
@@ -252,14 +189,16 @@ function operate() {
         if (lastOperation == 'add') {
             
             var sum = 0;
-            sum = Number(a) + Number(b);
+            sum = Number(b) + Number(a);
             c = b;
             b = sum;
             screen.innerText = sum;
             sub.appendChild(num);
             newLine = true;
-            lastOperation = 'add';
-            console.log(a + ' + ' + c + ' = ' + sum )
+
+            console.log(a + ' ' + b)
+
+            lastOperation = currentOperation
 
         } else if (lastOperation == 'subtract') {
 
@@ -270,8 +209,8 @@ function operate() {
             screen.innerText = sum;
             sub.appendChild(num);
             newLine = true;
-            lastOperation = 'subtract';
-            console.log(a + ' - ' + c + ' = ' + sum )
+
+            lastOperation = currentOperation
 
         } else if (lastOperation == 'multiply') {
 
@@ -282,8 +221,8 @@ function operate() {
             screen.innerText = sum;
             sub.appendChild(num);
             newLine = true;
-            lastOperation = 'multiply';
-            console.log(a + ' x ' + c + ' = ' + sum )
+            
+            lastOperation = currentOperation
 
         } else {
 
@@ -310,9 +249,10 @@ function operate() {
             screen.innerText = sum;
             sub.appendChild(num);
             newLine = true;
-            lastOperation = 'divide';
-            console.log(a + ' / ' + c + ' = ' + sum )
-            };
+            
+            lastOperation = currentOperation
+
+            }
 
         };
     };
