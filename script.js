@@ -1,31 +1,69 @@
 let a = null;
 let b = null;
-let newLine = false;
+let newLine = true;
 let lastOperation = null;
 let currentOperation = null;
-let afterEqual = false;
+let afterEqual = true;
 let divideByZero = false;
+let activeOperator = false;
 
-document.addEventListener('keyup', (event) => {
+function keyListener() {
 
-    if (event.key >= 0 && event.key <= 9) {
-        buttonNumber(event.key);
-    } else if (event.key == '+') {
-        buttonOperator('add');
-    }else if (event.key == '-') {
-        buttonOperator('subtract');
-    } else if (event.key == '/' || event.key == '\\') {
-        buttonOperator('divide');
-    } else if (event.key == 'x' || event.key == '*') {
-        buttonOperator('multiply');
-    } else if (event.key == '=' || event.key == 'Enter') {
-        buttonEqual();
-    } else if (event.key == 'Backspace') {
-        buttonBS()
-    } else if (event.key == '.') {
-        buttonDecimal()
-    } else {};
-});
+    document.addEventListener('keydown', (event) => {
+
+        if (event.key >= 0 && event.key <= 9) {
+            buttonNumber(event.key);
+        } else if (event.key == '+') {
+            buttonOperator('add');
+        }else if (event.key == '-') {
+            buttonOperator('subtract');
+        } else if (event.key == '/' || event.key == '\\') {
+            buttonOperator('divide');
+        } else if (event.key == 'x' || event.key == '*') {
+            buttonOperator('multiply');
+        } else if (event.key == '=' || event.keyCode === 13) {
+            disableButtons();
+            buttonEqual();
+            setTimeout(enableButtons, 50);
+         } else if (event.key == 'Backspace') {
+            buttonBS();
+        } else if (event.key == '.') {
+            buttonDecimal();
+        } else {};
+    });
+};
+
+function enableButtons() {
+    document.querySelectorAll("button.numBtn").forEach(elem => {
+        elem.disabled = false;
+        });
+    document.querySelectorAll("button.optBtn").forEach(elem => {
+        elem.disabled = false;
+        });
+    document.querySelectorAll("button.numBtn").forEach(elem => {
+        elem.disabled = false;
+        });
+    document.querySelectorAll("button.btn").forEach(elem => {
+        elem.disabled = false;
+        });
+};
+
+function disableButtons() {
+    document.querySelectorAll('button.numBtn').forEach(elem => {
+        elem.disabled = true;
+        }); 
+    document.querySelectorAll("button.optBtn").forEach(elem => {
+        elem.disabled = true;
+        });
+    document.querySelectorAll("button.numBtn").forEach(elem => {
+        elem.disabled = true;
+        });
+    document.querySelectorAll("button.btn").forEach(elem => {
+        elem.disabled = true;
+        });
+}
+
+keyListener();
 
 function buttonNumber(a) {
 
@@ -53,11 +91,9 @@ function buttonNumber(a) {
         screen.appendChild(num);
         sub.appendChild(subNum);
         afterEqual = false;
+        newLine = false;
     };
-
 };
-
-
 
 function buttonDecimal() {
     
@@ -66,7 +102,7 @@ function buttonDecimal() {
     var num = document.createTextNode('.');
     var subNum = document.createTextNode('.');
 
-    if (screen.innerText.includes('.')) {
+    if (screen.innerText.includes('.') || afterEqual == true) {
         //Do nothing if number already has a decimal
     } else {
         screen.appendChild(num);
@@ -80,14 +116,14 @@ function buttonClear() {
     var screen = document.getElementById('screen');
     var sub = document.getElementById('subscreen');
 
-    screen.innerText = '';
-    sub.innerText='';
+    screen.innerText = null;
+    sub.innerText = null;
     a = null;
     b = null;
     lastOperation = null;
     afterEqual = false;
 
-    console.log('Poof! The screen has been cleared.')
+    console.log('Poof! The screen has been cleared.');
 
 };
 
@@ -123,22 +159,26 @@ function buttonOperator(op) {
         if (lastOperation == null) {lastOperation = op};
 
         currentOperation = op;
-
         var sub = document.getElementById('subscreen');
         
         if (afterEqual == true) {
             sub.innerText = String(a);
             afterEqual = false;
-        }
+        };
 
         operate();
+        newLine = true;
+        activeOperator = true;
+
     };
 };
 
 function buttonEqual() {
 
-    if (afterEqual == true) {
-        //Don't do anything if 'Equal' was just pressed
+    var screen = document.getElementById('screen')
+
+    if (afterEqual || screen.innerText == null || (screen.innerText != null && activeOperator == false)) {
+        //Don't do anything if 'Equal' was just pressed or operator key was just pressed
     } else {
 
     operate();
@@ -148,7 +188,6 @@ function buttonEqual() {
     } else {
     
         var sub = document.getElementById('subscreen');
-        var screen = document.getElementById('screen')
         a = screen.innerText
     
         var str = sub.innerText
@@ -165,7 +204,7 @@ function buttonEqual() {
         newLine = false;
     
         };
-    };
+    };    
 };
 
 function operate() { 
