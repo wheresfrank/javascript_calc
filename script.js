@@ -1,22 +1,23 @@
 let a = null;
 let b = null;
-let newLine = true;
-let lastOperation = '';
-let currentOperation = '';
+let newLine = false;
+let lastOperation = null;
+let currentOperation = null;
 let afterEqual = false;
+let divideByZero = false;
 
 document.addEventListener('keyup', (event) => {
 
     if (event.key >= 0 && event.key <= 9) {
         buttonNumber(event.key);
     } else if (event.key == '+') {
-        buttonPlus();
+        buttonOperator('add');
     }else if (event.key == '-') {
-        buttonSub();
+        buttonOperator('subtract');
     } else if (event.key == '/' || event.key == '\\') {
-        buttonDiv();
+        buttonOperator('divide');
     } else if (event.key == 'x' || event.key == '*') {
-        buttonMult();
+        buttonOperator('multiply');
     } else if (event.key == '=' || event.key == 'Enter') {
         buttonEqual();
     } else if (event.key == 'Backspace') {
@@ -28,137 +29,138 @@ document.addEventListener('keyup', (event) => {
 
 function buttonNumber(a) {
 
-    var screen = document.getElementById('screen')
+    var screen = document.getElementById('screen');
     var sub = document.getElementById('subscreen');
-    var num = document.createTextNode(a)
-    var subNum = document.createTextNode(a)
+    var num = document.createTextNode(a);
+    var subNum = document.createTextNode(a);
+    
+        if (a == '0' && screen.innerText == '0') {
+            //No numbers starting with double zeros
+        } else if (afterEqual == true) {
+            buttonClear();
+        
+        } else if (newLine == true) {
+            screen.innerText = '';
+            screen.appendChild(num);
+            sub.appendChild(subNum);
+            newLine = false;
+            afterEqual = false;
+        } else {
+            screen.appendChild(num);
+            sub.appendChild(subNum);
+            afterEqual = false;
+        };
 
-
-    if (afterEqual == true) {
-        buttonClear()
-    }
-
-    if (newLine == true) {
-        screen.innerText = ''
-        screen.appendChild(num);
-        sub.appendChild(subNum);
-        newLine = false;
-        afterEqual = false;
-    } else {
-        screen.appendChild(num);
-        sub.appendChild(subNum);
-        afterEqual = false;
     };
-};
+
+
 
 function buttonDecimal() {
     
-    var screen = document.getElementById('screen')
+    var screen = document.getElementById('screen');
     var sub = document.getElementById('subscreen');
-    var num = document.createTextNode('.')
-    var subNum = document.createTextNode('.')
+    var num = document.createTextNode('.');
+    var subNum = document.createTextNode('.');
 
     if (screen.innerText.includes('.')) {
         //Do nothing if number already has a decimal
     } else {
         screen.appendChild(num);
-        sub.appendChild(subNum)
+        sub.appendChild(subNum);
         newLine = false;
     };
 };
 
 function buttonClear() {
     
-    var screen = document.getElementById('screen')    
-    var sub = document.getElementById('subscreen')
+    var screen = document.getElementById('screen');
+    var sub = document.getElementById('subscreen');
 
-    screen.innerText = ''
-    sub.innerText=''
-    a = null
-    b = null
-    lastOperation = '';
+    screen.innerText = '';
+    sub.innerText='';
+    a = null;
+    b = null;
+    lastOperation = null;
     afterEqual = false;
 
 };
 
 function buttonBS() {
     
-    var screen = document.getElementById('screen')
-    var num = screen.innerText
-    var array = num.split('')
-    array.pop()
-    var array = array.join('')
+    var screen = document.getElementById('screen');
+    var sub = document.getElementById('subscreen');
+
+    if (isNaN(screen.innerText) || screen.innerText == '' || afterEqual == true) {
+        //Do nothing if screen doesn't show a number
+    } else {
+    var screenText = screen.innerText
+    var subText = sub.innerText
+    var screenText = screenText.split('')
+    var subText = subText.split('')
+    screenText.pop()
+    subText.pop()
+    var screenText = screenText.join('')
+    var subText = subText.join('')
     
-    screen.innerText = array
+    screen.innerText = screenText;
+    sub.innerText = subText;
+    };
 
 };
 
-function buttonPlus() {
+function buttonOperator(op) {
 
-    if (lastOperation == '') {lastOperation = 'add'};
-    currentOperation = 'add'
+    if (newLine) {
+        //Do nothing if a number hasn't been selected since last operator button was pressed
+    } else {
 
-    var sub = document.getElementById('subscreen');
-    if (afterEqual == true) {sub.innerText = ''}
+        if (lastOperation == null) {lastOperation = op};
 
-    operate();
+        currentOperation = op;
 
-};
+        var sub = document.getElementById('subscreen');
+        
+        if (afterEqual == true) {
+            sub.innerText = String(a);
+            afterEqual = false;
+        }
 
-function buttonSub() {
-
-    if (lastOperation == '') {lastOperation = 'subtract'};
-    currentOperation = 'subtract'
-
-    var sub = document.getElementById('subscreen');
-    if (afterEqual == true) {sub.innerText = ''}
-    
-    operate();
-
-};
-
-function buttonMult() {
-
-    if (lastOperation == '') {lastOperation = 'multiply'};
-    currentOperation = 'multiply'
-
-    var sub = document.getElementById('subscreen');
-    if (afterEqual == true) {sub.innerText = ''}
-
-    operate();
-
-};
-
-function buttonDiv() {
-
-    if (lastOperation == '') {lastOperation = 'divide'};
-    currentOperation = 'divide'
-
-    var sub = document.getElementById('subscreen');
-    if (afterEqual == true) {sub.innerText = ''}
-    
-    operate();
-
+        operate();
+    };
 };
 
 function buttonEqual() {
 
-    operate();    
+    if (afterEqual == true) {
+        //Don't do anything if 'Equal' was just pressed
+    } else {
+
+    operate();
     
-    var sub = document.getElementById('subscreen');
-    var screen = document.getElementById('screen')
-    a = screen.innerText
- 
-    var str = sub.innerText
-    var str = str.split(' ')
-    str.pop()
-    var str = str.join(' ')
+    if (divideByZero) {
+        //Don't change subscreen if dumb user divides by zero
+    } else {
+    
+        var sub = document.getElementById('subscreen');
+        var screen = document.getElementById('screen')
+        a = screen.innerText
+    
+        var str = sub.innerText
+        var str = str.split(' ')
+        str.pop()
+        var str = str.join(' ')
 
-    sub.innerText = str + ' = ' + a
+        sub.innerText = str + ' = ' + a
 
-    b = null
+        b = null
 
-    afterEqual = true;
+        afterEqual = true;
+        lastOperation = null;
+        newLine = false;
+    
+        };
+
+    }
 
 }
 
@@ -226,7 +228,7 @@ function operate() {
 
         } else {
 
-            if (b === null) {
+            if (b == null) {
 
                 b = a
                 screen.innerText = ''
@@ -238,6 +240,9 @@ function operate() {
             } else if (a == '0' || b == '0') {
     
                 screen.innerText = 'You Divided by Zero.\nUniverse Imploding.'
+                sub.innerHTML = '';
+                divideByZero = true;
+                newLine = true;
                 console.log('You fool! You have divided by Zero. May God have mercy on us!');
     
             } else {
@@ -252,9 +257,7 @@ function operate() {
             
             lastOperation = currentOperation
 
-            }
-
+            };
         };
     };
-    newLine = true;
 };

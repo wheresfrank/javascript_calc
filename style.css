@@ -8,7 +8,7 @@ body {
 
 #calc {
     width: 600px;
-    height: 800px;
+    height: 812px;
     position: relative;
     border: black solid 1px;
     background-color: darkslategray;
@@ -22,9 +22,10 @@ body {
 
 #screen {
     width: auto;
-    height: 81.5px;
+    height: 90px;
     word-wrap: break-word;
-    font-size: 42px;
+    overflow: hidden;
+    font-size: 40px;
     background-color: rgba(0, 0, 0, 0.253);
     color: #41FF00;
     padding: 5px;
@@ -34,6 +35,7 @@ body {
     width: auto;
     height: 41px;
     word-wrap: break-word;
+    overflow: hidden;
     font-size: 18px;
     background-color: rgba(0, 0, 0, 0.253);
     color: #248f00;
