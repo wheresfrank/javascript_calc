@@ -29,6 +29,8 @@ function keyListener() {
             buttonBS();
         } else if (event.key == '.') {
             buttonDecimal();
+        } else if (event.key == '%') {
+            buttonPercent();
         } else {};
     });
 };
@@ -72,7 +74,8 @@ function buttonNumber(a) {
     var num = document.createTextNode(a);
     var subNum = document.createTextNode(a);
     
-    if (a == '0' && screen.innerText == '0') {
+    if (a == 0 && screen.innerText == '0') {
+         return;
         //No numbers starting with double zeros
     };
     
@@ -95,6 +98,48 @@ function buttonNumber(a) {
     };
 };
 
+function buttonNegative() {
+
+    var screen = document.getElementById('screen');
+    var sub = document.getElementById('subscreen');
+
+    if (isNaN(screen.innerText) || screen.innerText == '') {
+
+        return;
+
+    } else {
+
+        screen.innerText = -screen.innerText;
+        var subArray = sub.innerText.split(' ');
+        subArray.pop();
+        var negative = screen.innerText;
+        subArray.push(negative);
+        var subArray = subArray.join(' ');
+        sub.innerText = subArray;
+
+    };
+};
+
+function buttonPercent() {
+
+    var screen = document.getElementById('screen');
+    var sub = document.getElementById('subscreen');
+
+    if (isNaN(screen.innerText) || screen.innerText == '') {
+        return;
+    } else {
+
+        var percent = screen.innerText / 100;
+        var subArray = sub.innerText.split(' ');
+        subArray.pop();
+        subArray.push(percent)
+        subArray = subArray.join(' ');
+        sub.innerText = subArray;
+        screen.innerText = percent;
+
+    };
+};
+
 function buttonDecimal() {
     
     var screen = document.getElementById('screen');
@@ -102,13 +147,25 @@ function buttonDecimal() {
     var num = document.createTextNode('.');
     var subNum = document.createTextNode('.');
 
-    if (screen.innerText.includes('.') || afterEqual == true) {
+    if (screen.innerText.includes('.')) {
         //Do nothing if number already has a decimal
-    } else {
+    } else if (afterEqual) {
+
+        buttonClear();
+
         screen.appendChild(num);
         sub.appendChild(subNum);
         newLine = false;
-    };
+        afterEqual = false;
+
+    } else {
+
+        screen.appendChild(num);
+        sub.appendChild(subNum);
+        newLine = false;
+        afterEqual = false;
+
+    }
 };
 
 function buttonClear() {
@@ -121,6 +178,8 @@ function buttonClear() {
     a = null;
     b = null;
     lastOperation = null;
+    currentOperation = null;
+    activeOperator = false;
     afterEqual = false;
 
     console.log('Poof! The screen has been cleared.');
@@ -132,7 +191,7 @@ function buttonBS() {
     var screen = document.getElementById('screen');
     var sub = document.getElementById('subscreen');
 
-    if (isNaN(screen.innerText) || screen.innerText == '' || afterEqual == true) {
+    if (isNaN(screen.innerText) || screen.innerText == '' || afterEqual) {
         //Do nothing if screen doesn't show a number, is blank, or equal was just pressed
     } else {
     var screenText = screen.innerText;
@@ -184,7 +243,11 @@ function buttonEqual() {
     operate();
     
     if (divideByZero) {
+
+        afterEqual = true;
+        divideByZero = false;
         //Don't change subscreen if dumb user divides by zero
+
     } else {
     
         var sub = document.getElementById('subscreen');
@@ -217,7 +280,7 @@ function operate() {
     if (currentOperation == 'add') {var symbol = '+'}
     else if (currentOperation == 'subtract') {var symbol = '-'}
     else if (currentOperation == 'multiply') {var symbol = 'x'}
-    else {var symbol = '/'}
+    else {var symbol = '\xF7'}
 
     var num = document.createTextNode(' ' + symbol + ' ');
     
@@ -234,7 +297,8 @@ function operate() {
         if (lastOperation == 'add') {
             
             var sum = 0;
-            sum = Number(b) + Number(a);
+            sum = (Number(b) + Number(a));
+            sum = roundAccurately(sum, 15)
             c = b;
             b = sum;
             screen.innerText = sum;
@@ -249,6 +313,7 @@ function operate() {
 
             var sum = 0;
             sum = Number(b) - Number(a);
+            sum = roundAccurately(sum, 15)
             c = b;
             b = sum;
             screen.innerText = sum;
@@ -263,6 +328,7 @@ function operate() {
 
             var sum = 0;
             sum = Number(a) * Number(b);
+            sum = roundAccurately(sum, 15)
             c = b;
             b = sum;
             screen.innerText = sum;
@@ -281,32 +347,36 @@ function operate() {
                 screen.innerText = '';
                 sub.appendChild(num);
                 newLine = true;
-                lastOperation = 'divide';
-    
+                lastOperation = 'divide';    
     
             } else if (a == '0' || b == '0') {
     
-                screen.innerText = 'You Divided by Zero.\nUniverse Imploding.';
-                sub.innerHTML = 'Why? Why would you do this?';
+                screen.innerText = 'You Divided by Zero!\nUniverse Imploding!';
+                sub.innerText = 'Why? Why would you do this?';
                 divideByZero = true;
                 newLine = true;
                 console.log('You fool! You have divided by Zero. May God have mercy on us!');
     
             } else {
     
-            var sum = 0;
-            sum = Number(b) / Number(a);
-            c = b;
-            b = sum;
-            screen.innerText = sum;
-            sub.appendChild(num);
-            newLine = true;
+                var sum = 0;
+                sum = Number(b) / Number(a);
+                sum = roundAccurately(sum, 15)
+                c = b;
+                b = sum;
+                screen.innerText = sum;
+                sub.appendChild(num);
+                newLine = true;
 
-            console.log(c + ' divided by ' + a + ' equals ' + b + '!');
-            
-            lastOperation = currentOperation;
+                console.log(c + ' divided by ' + a + ' equals ' + b + '!');
+                
+                lastOperation = currentOperation;
 
             };
         };
+    };
+
+    function roundAccurately(num, places) {
+        return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
     };
 };

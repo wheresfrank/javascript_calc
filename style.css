@@ -1,5 +1,6 @@
 body {
     background-color: rgb(152, 156, 160);
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -54,6 +55,7 @@ body {
 
 button {
     height: 122.5px;
+    width: 143.75px;
     text-align: center;
     border: none;
     display: inline-block;
@@ -63,16 +65,14 @@ button {
 }
 
 #btnClear {
-    width: 392.5px;
-    margin: 0px 2.5px 5px 5px;
+    margin: 0px 5px 5px 2.5px;
     float: left;
     background-color: rgb(240, 255, 238);
     color: orangered;
 }
 
 #btnClear:hover {
-    width: 392.5px;
-    margin: 0px 2.5px 5px 5px;
+    margin: 0px 5px 5px 2.5px;
     float: left;
     background-color: rgb(200, 223, 197);
     color: orangered;
@@ -81,38 +81,30 @@ button {
 #btnBS {
     background-color: rgb(240, 255, 238);
     color: orangered;
-    width: 192.5px;
-    margin: 0px 5px 5px 2.5px;
     float: left;
 }
 
 #btnBS:hover {
     background-color: rgb(200, 223, 197);
     color: orangered;
-    width: 192.5px;
-    margin: 0px 5px 5px 2.5px;
     float: left;
 }
 
 .numBtn {
-    width: 143.75px;
     background-color: rgb(240, 255, 238);
 }
 
 .numBtn:hover {
-    width: 143.75px;
     background-color: rgb(200, 223, 197);
 }
 
 .optBtn {
-    width: 143.75px;
     background-color: rgb(133, 197, 133);
     margin: 0px 5px 5px 2.5px;
     float: left;
 }
 
 .optBtn:hover {
-    width: 143.75px;
     background-color: rgb(143, 190, 143);
 }
 
@@ -127,15 +119,42 @@ button {
 }
 
 #btnEqual {
-    width: 143.75px;
     margin: 0px 2.5px 5px 2.5px;
     background-color: rgb(133, 197, 133);
     float: left;
 }
 
 #btnEqual:hover {
-    width: 143.75px;
     margin: 0px 2.5px 5px 2.5px;
     background-color: rgb(143, 190, 143);
     float: left;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: darkslategray;
+    color: #41FF00;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  footer a:link {
+      color: #41FF00;
+      text-decoration: none;
+  }
+
+  footer a:visited {
+    color: #41FF00;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #41FF00;
+    text-decoration: underline;
 }

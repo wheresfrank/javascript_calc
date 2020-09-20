@@ -14,25 +14,29 @@
                 <div id="subscreen"></div>
             </div>
             <div id="calcBottom">
+                <button id="btnNegative" class="numBtn lt" onclick="buttonNegative('7')">+/-</button>
+                <button id="btnPercent" class="numBtn md" onclick="buttonPercent()">%</button>
+                <button id="btnBS" class="numBtn md" onclick="buttonBS()">&#x2B05;</button>
                 <button id="btnClear" class="btn" onclick="buttonClear()">CLEAR</button>
-                <button id="btnBS" class="btn" onclick="buttonBS()">&#x2B05;</button><br>
                 <button id="btn7" class="numBtn lt" onclick="buttonNumber('7')">7</button>
                 <button id="btn8" class="numBtn md" onclick="buttonNumber('8')">8</button>
                 <button id="btn9" class="numBtn md" onclick="buttonNumber('9')">9</button>
-                <button id="btnDiv" class="optBtn" onclick="buttonOperator('divide')">÷</button><br>
+                <button id="btnDiv" class="optBtn" onclick="buttonOperator('divide')">÷</button>
                 <button id="btn4" class="numBtn lt" onclick="buttonNumber('4')">4</button>
                 <button id="btn5" class="numBtn md" onclick="buttonNumber('5')">5</button>
                 <button id="btn6" class="numBtn md" onclick="buttonNumber('6')">6</button>
-                <button id="btnMult" class="optBtn" onclick="buttonOperator('multiply')">x</button><br>
+                <button id="btnMult" class="optBtn" onclick="buttonOperator('multiply')">x</button>
                 <button id="btn1" class="numBtn lt" onclick="buttonNumber('1')">1</button>
                 <button id="btn2" class="numBtn md" onclick="buttonNumber('2')">2</button>
                 <button id="btn3" class="numBtn md" onclick="buttonNumber('3')">3</button>
-                <button id="btnSub" class="optBtn" onclick="buttonOperator('subtract')">-</button><br>
+                <button id="btnSub" class="optBtn" onclick="buttonOperator('subtract')">-</button>
                 <button id="btn0" class="numBtn lt" onclick="buttonNumber('0')">0</button>
                 <button id="btnDec" class="numBtn md" onclick="buttonDecimal()">.</button>
                 <button id="btnEqual" class="btn" onclick="buttonEqual()">=</button>
                 <button id="btnPlus" class="optBtn" onclick="buttonOperator('add')">+</button>      </div>
         </div>
-
+        <footer>
+        Created by Frank Johnette for <a href="https://www.theodinproject.com" target="_blank">The Odin Project</a>
+        </footer>
     </body>
 </html>
